@@ -158,6 +158,24 @@ export default async function PropertiesPage({ params, searchParams }: Propertie
           </div>
         </div>
       </div>
+
+      {/* JSON-LD Structured Data for Real Estate Listings */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": properties.map((p, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "url": `https://propertyhubharyana.com/property/${p.slug}`,
+              "name": p.title,
+              "description": p.description,
+            }))
+          })
+        }}
+      />
     </div>
   );
 }
