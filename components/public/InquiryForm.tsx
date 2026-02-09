@@ -31,7 +31,7 @@ export default function InquiryForm({ propertyId, fixedInquiryType }: InquiryFor
       phone: "",
       type: (fixedInquiryType || "PROPERTY") as any,
       message: "",
-      propertyId: propertyId as string | null,
+      propertyId: propertyId || null,
     },
   });
 

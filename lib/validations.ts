@@ -26,5 +26,5 @@ export const inquirySchema = z.object({
   phone: z.string().min(10, "Valid phone number is required"),
   type: z.enum(["PROPERTY", "GENERAL", "LOAN", "VISIT", "OTHER"]),
   message: z.string().optional(),
-  propertyId: z.preprocess((val) => val === "" ? null : val, z.string().optional().nullable()),
+  propertyId: z.string().optional().nullable(),
 });
