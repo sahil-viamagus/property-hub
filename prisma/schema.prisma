@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String
+  role          String    @default("ADMIN")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Property {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  description     String
+  city            String
+  locality        String
+  propertyType    String   // PLOT, FLAT, VILLA, HOUSE
+  bhk             Int?     // 1, 2, 3, 4, 5
+  price           Float
+  priceCategory   String   // under-50-lakh, 50-lakh-to-1-crore, etc.
+  areaSqFt        Float
+  latitude        Float?
+  longitude       Float?
+  images          String[] // Array of image URLs
+  featured        Boolean  @default(false)
+  status          String   @default("ACTIVE") // ACTIVE, SOLD
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  inquiries       Inquiry[]
+}
+
+model Inquiry {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  type        String   @default("PROPERTY") // PROPERTY, GENERAL, LOAN, etc.
+  message     String?  
+  propertyId  String?  // Optional for general inquiries
+  property    Property? @relation(fields: [propertyId], references: [id])
+  status      String   @default("PENDING") // PENDING, CONTACTED, CLOSED
+  createdAt   DateTime @default(now())
+}
+
+model Settings {
+  id          String   @id @default("global")
+  siteName     String  @default("Propery Hub Haryana")
+  heroTitle    String  @default("Find Your Dream Space")
+  heroSubtitle String  @default("Curated Premium Properties Across Haryana's Most Elite Localities")
+  heroVideoUrl String  @default("https://assets.mixkit.co/videos/preview/mixkit-modern-architecture-of-a-house-1644-large.mp4")
+  contactPhone String  @default("+919999900000")
+  whatsapp    String   @default("+919999900000")
+  email       String   @default("info@property.com")
+  headOffice        String   @default("Main Sector, Gurugram, Haryana")
+  maintenanceMode   Boolean  @default(false)
+  updatedAt   DateTime @updatedAt
+}
+model Area {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  state       String   @default("Haryana")
+  type        String   @default("DISTRICT") // DISTRICT, CITY, VILLAGE
+  order       Int      @default(0)
+  showOnHome  Boolean  @default(false)
+  isPopular   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model PropertyCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique // Internal ID like FLAT
+  label     String   // Display name like Flat / Apartment
+  createdAt DateTime @default(now())
+}

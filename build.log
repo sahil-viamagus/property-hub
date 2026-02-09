@@ -1,0 +1,41 @@
+﻿
+> property@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 6.8s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/13) ...
+  Generating static pages using 7 workers (3/13) 
+  Generating static pages using 7 workers (6/13) 
+  Generating static pages using 7 workers (9/13) 
+npm : Error occurred prerendering page "/sitemap.xml". Read more: 
+https://nextjs.org/docs/messages/prerender-error
+At line:1 char:1
++ npm run build *>&1 | Out-File -FilePath build.log -Encoding utf8
++ ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error occurred ...prerender-erro 
+   r:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Error [PrismaClientInitializationError]: 
+Invalid `prisma.property.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at async w 
+(E:\property\.next\server\chunks\[root-of-the-server]__23c5752a._.js:16:502)
+    at async _ 
+(E:\property\.next\server\chunks\[root-of-the-server]__23c5752a._.js:16:898) {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+Export encountered an error on /sitemap.xml/route: /sitemap.xml, exiting the 
+build.
+Γ¿» Next.js build worker exited with code: 1 and signal: null
