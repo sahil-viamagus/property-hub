@@ -167,7 +167,7 @@ export default function AdminAreasPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4">
-        <div className="bg-gray-100 p-4 rounded-xl flex items-center text-[10px] font-black uppercase tracking-widest text-gray-500">
+        <div className="hidden md:flex bg-gray-100 p-4 rounded-xl items-center text-[10px] font-black uppercase tracking-widest text-gray-500">
            <div className="flex-1">Location Details</div>
            <div className="w-32 text-center">Type</div>
            <div className="w-32 text-center">Order</div>
@@ -176,50 +176,56 @@ export default function AdminAreasPage() {
            <div className="w-16"></div>
         </div>
         {areas.map((area) => (
-          <div key={area.id} className="flex items-center p-4 bg-white rounded-xl border group hover:border-blue-500 transition-colors shadow-sm">
+          <div key={area.id} className="flex flex-col md:flex-row md:items-center p-4 bg-white rounded-xl border group hover:border-blue-500 transition-colors shadow-sm gap-4">
             <div className="flex-1 flex items-center">
-              <MapPin className="h-5 w-5 text-gray-400 mr-3 group-hover:text-blue-500" />
+              <MapPin className="h-5 w-5 text-gray-400 mr-3 group-hover:text-blue-500 shrink-0" />
               <span className="text-sm font-black text-gray-900 uppercase tracking-tighter">{area.name}</span>
             </div>
             
-            <div className="w-32 text-center">
-               <span className="text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-full text-gray-600 uppercase tracking-widest">{area.type}</span>
-            </div>
+            <div className="flex flex-wrap items-center justify-between md:justify-end gap-4 md:gap-0">
+              <div className="md:w-32 flex flex-col md:items-center">
+                 <label className="md:hidden text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Type</label>
+                 <span className="text-[10px] font-bold bg-gray-100 px-2 py-1 rounded-full text-gray-600 uppercase tracking-widest">{area.type}</span>
+              </div>
 
-            <div className="w-32 px-4">
-               <input 
-                 type="number" 
-                 defaultValue={area.order}
-                 onBlur={(e) => onUpdateOrder(area, e.target.value)}
-                 className="w-full text-center text-xs font-bold border-b border-transparent focus:border-blue-500 outline-none"
-               />
-            </div>
+              <div className="md:w-32 px-0 md:px-4 flex flex-col md:items-center">
+                 <label className="md:hidden text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Order</label>
+                 <input 
+                   type="number" 
+                   defaultValue={area.order}
+                   onBlur={(e) => onUpdateOrder(area, e.target.value)}
+                   className="w-16 md:w-full text-left md:text-center text-xs font-bold border-b border-gray-100 focus:border-blue-500 outline-none"
+                 />
+              </div>
 
-            <div className="w-32 flex justify-center">
-               <button 
-                 onClick={() => onToggleHome(area)}
-                 className={`h-6 w-12 rounded-full transition-colors relative ${area.showOnHome ? 'bg-blue-600' : 'bg-gray-200'}`}
-               >
-                  <div className={`absolute top-1 h-4 w-4 bg-white rounded-full transition-all ${area.showOnHome ? 'left-7' : 'left-1'}`} />
-               </button>
-            </div>
+              <div className="md:w-32 flex flex-col items-center">
+                 <label className="md:hidden text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Home</label>
+                 <button 
+                   onClick={() => onToggleHome(area)}
+                   className={`h-6 w-12 rounded-full transition-colors relative ${area.showOnHome ? 'bg-blue-600' : 'bg-gray-200'}`}
+                 >
+                    <div className={`absolute top-1 h-4 w-4 bg-white rounded-full transition-all ${area.showOnHome ? 'left-7' : 'left-1'}`} />
+                 </button>
+              </div>
 
-            <div className="w-32 flex justify-center">
-               <button 
-                 onClick={() => onTogglePopular(area)}
-                 className={`h-6 w-12 rounded-full transition-colors relative ${area.isPopular ? 'bg-emerald-600' : 'bg-gray-200'}`}
-               >
-                  <div className={`absolute top-1 h-4 w-4 bg-white rounded-full transition-all ${area.isPopular ? 'left-7' : 'left-1'}`} />
-               </button>
-            </div>
+              <div className="md:w-32 flex flex-col items-center">
+                 <label className="md:hidden text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Popular</label>
+                 <button 
+                   onClick={() => onTogglePopular(area)}
+                   className={`h-6 w-12 rounded-full transition-colors relative ${area.isPopular ? 'bg-emerald-600' : 'bg-gray-200'}`}
+                 >
+                    <div className={`absolute top-1 h-4 w-4 bg-white rounded-full transition-all ${area.isPopular ? 'left-7' : 'left-1'}`} />
+                 </button>
+              </div>
 
-            <div className="w-16 flex justify-end">
-              <button
-                onClick={() => onDeleteArea(area.id)}
-                className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-              >
-                <Trash2 className="h-4 w-4" />
-              </button>
+              <div className="md:w-16 flex justify-end">
+                <button
+                  onClick={() => onDeleteArea(area.id)}
+                  className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
         ))}
